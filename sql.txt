@@ -1,0 +1,208 @@
+CREATE TABLE Brend (
+id_brend integer not Null primary key, 
+name_brend Varchar(50)
+);
+
+
+CREATE TABLE Cpu (
+id_cpu integer not Null primary key, 
+name_cpu Varchar(50)
+);
+
+CREATE TABLE Screen (
+id_screen integer not Null primary key, 
+name_screen  Varchar(50)
+);
+
+CREATE TABLE Teleph (
+id_teleph integer not null primary key,
+model_teleph Varchar(50),
+id_brend integer REFERENCES Brend (id_brend ),
+id_cpu integer REFERENCES Cpu (id_cpu), 
+id_screen integer REFERENCES Screen (id_screen)
+);
+
+CREATE TABLE skald(
+id_poz integer not Null primary key, 
+id_teleph integer REFERENCES Teleph (id_teleph),
+k_st integer
+);
+
+CREATE TABLE Client (
+id_client integer not null primary key,
+PIB_client Varchar(70),
+teleph varchar(15)
+);
+
+_________________________________
+
+INSERT INTO Cpu (id_cpu, name_cpu)
+VALUES (1,'Snap 660');
+
+INSERT INTO Cpu (id_cpu, name_cpu)
+VALUES (2,'Snap 710');
+
+INSERT INTO Cpu (id_cpu, name_cpu)
+VALUES (3,'Snap 855');
+
+INSERT INTO Cpu (id_cpu, name_cpu)
+VALUES (4,'Snap 870');
+
+INSERT INTO Cpu (id_cpu, name_cpu)
+VALUES (5,'Mtk p60');
+
+INSERT INTO Cpu (id_cpu, name_cpu)
+VALUES (6,'mtk g80');
+
+___________________________________
+
+INSERT INTO Client (id_client, PIB_client, teleph)
+VALUES (1,' Ковальчук М.І.', '0934317573');
+INSERT INTO Client (id_client, PIB_client, teleph)
+VALUES (2,' Загребельна А.С.', '0964547543');
+INSERT INTO Client (id_client, PIB_client, teleph)
+VALUES (3,' Буц М.А.', '0634369043');
+INSERT INTO Client (id_client, PIB_client, teleph)
+VALUES (4,' Бойко Д.Ю.', '0684543783');
+INSERT INTO Client (id_client, PIB_client, teleph)
+VALUES (5,' Кальніцкий І.М.', '0934360527');
+INSERT INTO Client (id_client, PIB_client, teleph)
+VALUES (6,' Строрчевий Н.Р.', '0934317543');
+
+____________________________________
+INSERT INTO Screen (id_screen, name_screen)
+VALUES (1,' IPS HD+');
+INSERT INTO Screen (id_screen, name_screen)
+VALUES (2,' IPS FullHD+');
+INSERT INTO Screen (id_screen, name_screen)
+VALUES (3,' Amoled FullHD+');
+INSERT INTO Screen (id_screen, name_screen)
+VALUES (4,' IPS FullHD');
+INSERT INTO Screen (id_screen, name_screen)
+VALUES (5,' IPS HD');
+INSERT INTO Screen (id_screen, name_screen)
+VALUES (6,' Amoled FullHD');
+_____________________________________________
+
+INSERT INTO Brend (id_brend, name_brend)
+VALUES (1,' Samsung');
+INSERT INTO Brend (id_brend, name_brend)
+VALUES (2,' Xiaomi');
+INSERT INTO Brend (id_brend, name_brend)
+VALUES (3,' Lenovo');
+INSERT INTO Brend (id_brend, name_brend)
+VALUES (4,' Poco');
+INSERT INTO Brend (id_brend, name_brend)
+VALUES (5,' Motorolla');
+
+____________________________________________
+
+INSERT INTO Teleph (id_teleph, model_teleph, id_brend, id_cpu, id_screen)
+VALUES (1,' Z5S',3,2,2);
+INSERT INTO Teleph (id_teleph, model_teleph, id_brend, id_cpu, id_screen)
+VALUES (2,' Z5 PRO GT',3,3,3);
+INSERT INTO Teleph (id_teleph, model_teleph, id_brend, id_cpu, id_screen)
+VALUES (3,' Edge 20 pro',5,4,3);
+INSERT INTO Teleph (id_teleph, model_teleph, id_brend, id_cpu, id_screen)
+VALUES (4,' note 7',2,1,2);
+INSERT INTO Teleph (id_teleph, model_teleph, id_brend, id_cpu, id_screen)
+VALUES (5,' s10e ',1,3,3);
+INSERT INTO Teleph (id_teleph, model_teleph, id_brend, id_cpu, id_screen)
+VALUES (6,' note 8 pro',2,6,2);
+
+_________________________________________
+
+
+INSERT INTO skald (id_poz, id_teleph,k_st)
+VALUES (1,1,10);
+INSERT INTO skald (id_poz, id_teleph,k_st)
+VALUES (2,2,15);
+INSERT INTO skald (id_poz, id_teleph,k_st)
+VALUES (3,3,5);
+INSERT INTO skald (id_poz, id_teleph,k_st)
+VALUES (4,4,3);
+INSERT INTO skald (id_poz, id_teleph,k_st)
+VALUES (5,5,12);
+INSERT INTO skald (id_poz, id_teleph,k_st)
+VALUES (6,6,6);
+
+__________________________________________
+
+
+CREATE OR REPLACE FUNCTION log_buy() RETURNS TRIGGER AS $$
+DECLARE
+	client varchar(70);
+	telph varchar(70);
+   	retstr varchar(254);
+	date_op date;
+BEGIN
+    IF    TG_OP = 'INSERT' THEN
+		client := (Select name_brend from Brend Where id_brend  = NEW.id_brend ) + (Select model_teleph from Teleph Where id_teleph = NEW.id_teleph);
+		telph := (Select PIB_client from Client Where id_client = NEW.id_client) ;
+		retstr := client ||' купив '||telph;
+		date_op := NOW();
+		UPDATE skald SET k_st = k_st-1 WHERE id_teleph = NEW.id_teleph;
+        INSERT INTO logs(text,added) values (retstr,NOW());
+        RETURN NEW;
+	ELSIF    TG_OP = 'DELETE' THEN
+      		client := (Select name_brend from Brend Where id_brend  = NEW.id_brend ) + (Select model_teleph from Teleph Where id_teleph = NEW.id_teleph);
+		telph := (Select PIB_client from Client Where id_client = NEW.id_client) ;
+		retstr := client ||' Повернув '||telph;
+		date_op := NOW();
+		UPDATE skald SET k_st = k_st+1 WHERE id_teleph = NEW.id_teleph;
+        INSERT INTO logs(text,added) values (retstr,NOW());
+        RETURN OLd;
+    END IF;
+END;
+$$ LANGUAGE plpgsql;
+
+CREATE TRIGGER operat
+AFTER INSERT OR DELETE ON operation FOR EACH ROW EXECUTE PROCEDURE log_buy();
+
+
++++++++++++++++++++++++++++++++++++++++++++++++
+
+
+CREATE OR REPLACE FUNCTION log_buy() RETURNS TRIGGER AS $$
+DECLARE
+BEGIN
+    IF    TG_OP = 'INSERT' THEN
+		UPDATE skald SET k_st = k_st-1 WHERE id_teleph = NEW.id_teleph;
+        RETURN NEW;
+	ELSIF    TG_OP = 'DELETE' THEN
+		UPDATE skald SET k_st = k_st+1 WHERE id_teleph = NEW.id_teleph;
+        RETURN OLd;
+    END IF;
+END;
+$$ LANGUAGE plpgsql;
+
+CREATE TRIGGER operat
+AFTER INSERT OR DELETE ON operation FOR EACH ROW EXECUTE PROCEDURE log_buy();
+
+
+
+++++++++++_______________________________________
+
+
+CREATE OR REPLACE VIEW teleph_view AS
+SELECT id_teleph ,name_brend , model_teleph,name_cpu, name_screen
+    FROM Teleph, Brend, Cpu, Screen
+	where Teleph.id_brend = Brend.id_brend AND
+		Teleph.id_cpu = Cpu.id_cpu AND
+		Teleph.id_screen = Screen.id_screen
+
+
+__________________________________________________
+
+CREATE TABLE operation (
+id_operation integer not null primary key,
+id_client integer REFERENCES Client (id_client),
+id_teleph integer REFERENCES Teleph (id_teleph)
+);
+
+
+___________________________________________________
+
+
+INSERT INTO operation (id_operation, id_client,id_teleph)
+VALUES (1,1,1);

@@ -1,0 +1,540 @@
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/themes/base/jquery-ui.css" rel="stylesheet" type="text/css"/>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.5/jquery.min.js"></script>
+<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/jquery-ui.min.js"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+  <title>lab js</title>
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo01" aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
+      <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+        <li class="nav-item">
+          <a class="nav-link" onClick="GetBrend()">Brend</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" onClick="GetClient()">Client</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" onClick="GetCpu()">Cpu</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" onClick="GetTeleph()">Teleph</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" onClick="GetScreen()">Screen</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" onClick="GetSklad()">Sklad</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" onClick="GetOperation()">Operation</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" onClick="GetTeleph_view()">Teleph_view</a>
+          </li>
+      </ul>
+      <form class="form-inline my-2 my-lg-0">
+        <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search"  id="Search">
+        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+      </form>
+    </div>
+  </nav>
+</head>
+<body>	
+        <table id="table" class="table table-dark">
+            <thead>
+	</table>
+        <div>
+           <form>
+         <div id="brend">
+          <input type="text" id="brenddel"> 
+          <input button class="btn btn-primary" type="button" id="btn" value="Видалити запис" onClick="delbrend()"/> <br/><br/></br>
+         <input type="text" id="id_brend"><label for="uname">id_brend: </label> </br>
+         <input type="text" id="name_brend"><label for="uname">name_brend: </label></br>
+			<input button class="btn btn-primary" type="button" id="btn" value="додати запис" onClick="addbrend"/> <br/><br/>
+         </div>
+         <div id="client">
+          <input type="text" id="clientdel"> 
+         <input button class="btn btn-primary" type="button" id="btn" value="Видалити запис" onClick="delclient()"/> <br/><br/></br>
+          <input type="text" id="id_client"> <label for="uname">id_client: </label></br>
+			  <input type="text" id="PIB_client"> <label for="uname">PIB_client: </label> </br>
+           <input type="text" id="teleph"><label for="uname">teleph: </label></br>
+			<input button class="btn btn-primary" type="button" id="btn" value="додати запис" onClick="addclient()"/> <br/><br/></br>
+         </div>
+         <div id="cpu">
+          <input type="text" id="cpudel"> 
+         <input button class="btn btn-primary" type="button" id="btn" value="Видалити запис" onClick="delcpu()"/> <br/><br/></br>
+          <input type="text" id="id_cpu"> <label for="uname">id_cpu: </label></br>
+        <input type="text" id="name_cpu"> <label for="uname">name_cpu: </label> </br>
+			<input button class="btn btn-primary" type="button" id="btn" value="додати запис" onClick="addcpu()"/> <br/><br/></br>
+         </div>
+         <div id="screen">
+          <input type="text" id="screendel"> 
+         <input button class="btn btn-primary" type="button" id="btn" value="Видалити запис" onClick="delscreen()"/> <br/><br/></br>
+          <input type="text" id="id_screen"> <label for="uname">id_screen: </label></br>
+        <input type="text" id="name_screen"> <label for="uname">name_screen: </label> </br>
+			<input button class="btn btn-primary" type="button" id="btn" value="додати запис" onClick="addscreen()"/> <br/><br/></br>
+         </div>
+         <div id="sklad">
+          <input type="text" id="skladdel"> 
+         <input button class="btn btn-primary" type="button" id="btn" value="Видалити запис" onClick="delsklad()"/> <br/><br/></br>
+         <input type="text" id="id_poz"><label for="uname">id_poz: </label>  </br>
+        <input type="text" id="id_telph"> <label for="uname">id_telph: </label>  </br>
+         <input type="text" id="k_st"><label for="uname">k_st: </label>  </br>
+			<input button class="btn btn-primary" type="button" id="btn" value="додати запис" onClick="addsklad()"/> <br/><br/></br>
+         </div>
+         <div id="telep">
+          <input type="text" id="telephdel"> 
+         <input button class="btn btn-primary" type="button" id="btn" value="Видалити запис" onClick="delteleph()"/> <br/><br/></br>
+          <input type="text" id="id_teleph"> <label for="uname">id_teleph: </label> </br>
+          <input type="text" id="model_teleph"> <label for="uname">model_teleph: </label></br>
+          <input type="text" id="id_brend"><label for="uname">id_brend: </label> </br>
+          <input type="text" id="id_cpu"><label for="uname">id_cpu: </label> </br>
+          <input type="text" id="id_screen"><label for="uname">id_screen: </label> </br>
+			<input button class="btn btn-primary" type="button" id="btn" value="додати запис" onClick="addteleph()"/> <br/><br/></br>
+         </div>
+         <div id="operation">
+          <input type="text" id="operationdel"> 
+         <input button class="btn btn-primary" type="button" id="btn" value="Видалити запис" onClick="deloperation()"/> <br/><br/></br>
+          <input type="text" id="id_operation"> <label for="uname">id_operation: </label> </br>
+          <input type="text" id="id_client"> <label for="uname">id_client: </label></br>
+          <input type="text" id="id_teleph"><label for="uname">id_teleph: </label> </br>
+			<input button class="btn btn-primary" type="button" id="btn" value="додати запис" onClick="addoperation()"/> <br/><br/></br>
+         </div>
+         <div id="view_search">
+          <input type="text" id="view_search"><label for="uname">view_search: </label> </br>
+			<input button class="btn btn-primary" type="button" id="btn" value="Пошук" onClick="view_search()"/> <br/><br/></br>
+         </div>
+           </form>
+
+           <script>
+"use strict";
+
+document.getElementById("brend").style.display = "none";
+document.getElementById("client").style.display = "none";
+document.getElementById("cpu").style.display = "none";
+document.getElementById("sklad").style.display = "none";
+document.getElementById("screen").style.display = "none";
+document.getElementById("telep").style.display = "none";
+document.getElementById("operation").style.display = "none";
+document.getElementById("view_search").style.display = "none";
+
+function GetBrend(){
+document.getElementById("brend").style.display = "block";
+document.getElementById("client").style.display = "none";
+document.getElementById("cpu").style.display = "none";
+document.getElementById("sklad").style.display = "none";
+document.getElementById("telep").style.display = "none";
+document.getElementById("screen").style.display = "none";
+document.getElementById("operation").style.display = "none";
+document.getElementById("view_search").style.display = "none";
+fetch('http://127.0.0.1:8081/brend')
+.then((response) => {
+  return response.json(); 
+})
+.then((data) => {
+  let itemList = data;
+   let items_table = document.getElementById('table');
+   console.log(itemList);
+   items_table.innerHTML = '<th scope="col">Код</th>  <th scope="col">Назва Бренду</th>';
+for(let i = 0; i < itemList.length; i++)
+{ 
+    items_table.innerHTML+= '<tr><td>' + itemList[i].id_brend + '</td><td>' + itemList[i].name_brend+'</td></tr>';
+}
+});
+}
+
+function GetClient(){
+  document.getElementById("brend").style.display = "none";
+document.getElementById("client").style.display = "block";
+document.getElementById("cpu").style.display = "none";
+document.getElementById("sklad").style.display = "none";
+document.getElementById("telep").style.display = "none";
+document.getElementById("screen").style.display = "none";
+document.getElementById("operation").style.display = "none";
+document.getElementById("view_search").style.display = "none";
+fetch('http://127.0.0.1:8081/client')
+.then((response) => {
+  return response.json(); 
+})
+.then((data) => {
+  let itemList = data;
+   let items_table = document.getElementById('table');
+   items_table.innerHTML = '<th scope="col">Код</th>  <th scope="col">ПІБ клієнта</th> <th scope="col">Телефон</th>';
+for(let i = 0; i < itemList.length; i++)
+{ 
+    items_table.innerHTML+= 
+    '<tr><td>' + itemList[i].id_client 
+    + '</td><td>' + itemList[i].PIB_client
+    + '</td><td>'+ itemList[i].teleph +'</tr>';
+}
+});
+}
+
+function GetCpu(){
+  document.getElementById("brend").style.display = "none";
+document.getElementById("client").style.display = "none";
+document.getElementById("cpu").style.display = "block";
+document.getElementById("sklad").style.display = "none";
+document.getElementById("telep").style.display = "none";
+document.getElementById("screen").style.display = "none";
+document.getElementById("operation").style.display = "none";
+document.getElementById("view_search").style.display = "none";
+fetch('http://127.0.0.1:8081/cpu')
+.then((response) => {
+  return response.json(); 
+})
+.then((data) => {
+  let itemList = data;
+   let items_table = document.getElementById('table');
+   items_table.innerHTML = '<th scope="col">Код</th>  <th scope="col">Назва процесору</th>';
+for(let i = 0; i < itemList.length; i++)
+{ 
+    items_table.innerHTML+= 
+    '<tr><td>' + itemList[i].id_cpu 
+        +'</td><td>'+itemList[i].name_cpu+'</td></tr>';
+}
+});
+}
+function GetSklad(){
+document.getElementById("brend").style.display = "none";
+document.getElementById("client").style.display = "none";
+document.getElementById("cpu").style.display = "none";
+document.getElementById("sklad").style.display = "block";
+document.getElementById("telep").style.display = "none";
+document.getElementById("screen").style.display = "none";
+document.getElementById("operation").style.display = "none";
+document.getElementById("view_search").style.display = "none";
+fetch('http://127.0.0.1:8081/sklad')
+.then((response) => {
+  return response.json(); 
+})
+.then((data) => {
+  let itemList = data;
+   let items_table = document.getElementById('table');
+   items_table.innerHTML = '<th scope="col">Код</th>  <th scope="col">Код телефону</th> <th scope="col">К-сть на складі</th>';
+for(let i = 0; i < itemList.length; i++)
+{ 
+    items_table.innerHTML+= '<tr><td>' + itemList[i].id_poz + '</td><td>' + itemList[i].id_teleph + '</td><td>' + itemList[i].k_st + '</td></tr>';
+}
+});
+}
+
+function GetTeleph(){
+document.getElementById("brend").style.display = "none";
+document.getElementById("client").style.display = "none";
+document.getElementById("cpu").style.display = "none";
+document.getElementById("sklad").style.display = "none";
+document.getElementById("telep").style.display = "block";
+document.getElementById("screen").style.display = "none";
+document.getElementById("operation").style.display = "none";
+document.getElementById("view_search").style.display = "none";
+fetch('http://127.0.0.1:8081/teleph')
+.then((response) => {
+  return response.json(); 
+})
+.then((data) => {
+  let itemList = data;
+   let items_table = document.getElementById('table');
+   items_table.innerHTML = '<th scope="col">Код</th> <th scope="col">Назва моделі</th> <th scope="col">код бренду</th> <th scope="col">код процесору</th><th scope="col">код типу екрану</th>';
+for(let i = 0; i < itemList.length; i++)
+{ 
+    items_table.innerHTML+= '<tr><td>' + itemList[i].id_teleph + '</td><td>' + itemList[i].model_teleph  + '</td><td>' + itemList[i].id_brend + '</td><td>' + itemList[i].id_cpu + '</td><td>' + itemList[i].id_screen + '</td></tr>';
+}
+});
+}
+function GetOperation(){
+  document.getElementById("brend").style.display = "none";
+document.getElementById("client").style.display = "none";
+document.getElementById("cpu").style.display = "none";
+document.getElementById("sklad").style.display = "none";
+document.getElementById("telep").style.display = "none";
+document.getElementById("screen").style.display = "none";
+document.getElementById("operation").style.display = "block";
+document.getElementById("view_search").style.display = "none";
+fetch('http://127.0.0.1:8081/operation')
+.then((response) => {
+  return response.json(); 
+})
+.then((data) => {
+  let itemList = data;
+   let items_table = document.getElementById('table');
+   items_table.innerHTML = '<th scope="col">Код</th>  <th scope="col">Клієнт</th> <th scope="col">Телефон</th>';
+for(let i = 0; i < itemList.length; i++)
+{ 
+    items_table.innerHTML+= '<tr><td>' + itemList[i].id_operation + '</td><td>' + itemList[i].id_client+ '</td><td>' + itemList[i].id_teleph  + '</td></tr>';
+}
+});
+}
+function GetScreen(){
+  document.getElementById("brend").style.display = "none";
+document.getElementById("client").style.display = "none";
+document.getElementById("cpu").style.display = "none";
+document.getElementById("sklad").style.display = "none";
+document.getElementById("telep").style.display = "none";
+document.getElementById("screen").style.display = "none";
+document.getElementById("operation").style.display = "none";
+document.getElementById("view_search").style.display = "none";
+fetch('http://127.0.0.1:8081/screen')
+.then((response) => {
+  return response.json(); 
+})
+.then((data) => {
+  let itemList = data;
+   let items_table = document.getElementById('table');
+   items_table.innerHTML = '<th scope="col">Код</th>  <th scope="col">Тип екрану</th>';
+for(let i = 0; i < itemList.length; i++)
+{ 
+    items_table.innerHTML+= '<tr><td>' + itemList[i].id_screen + '</td><td>' + itemList[i].name_screen+ '</td></tr>';
+}
+});
+}
+function GetTeleph_view(){
+  document.getElementById("brend").style.display = "none";
+document.getElementById("client").style.display = "none";
+document.getElementById("cpu").style.display = "none";
+document.getElementById("sklad").style.display = "none";
+document.getElementById("telep").style.display = "none";
+document.getElementById("screen").style.display = "none";
+document.getElementById("operation").style.display = "none";
+document.getElementById("view_search").style.display = "block";
+fetch('http://127.0.0.1:8081/teleph_view')
+.then((response) => {
+  return response.json(); 
+})
+.then((data) => {
+  let itemList = data;
+   let items_table = document.getElementById('table');
+   items_table.innerHTML = '<th scope="col">Код</th>  <th scope="col">Назва бренду</th> <th scope="col">модель</th><th scope="col">Процесор</th><th scope="col">Дисплей</th>';
+for(let i = 0; i < itemList.length; i++)
+{ 
+    items_table.innerHTML+= '<tr><td>' + itemList[i].id_teleph + '</td><td>'+ itemList[i].name_brend + '</td><td>'+ itemList[i].model_teleph+ '</td><td>'+ itemList[i].name_cpu + '</td><td>' + itemList[i].name_screen+ '</td></tr>';
+}
+});
+}
+function view_search(){
+  let view_search = document.getElementById('view_search')
+fetch('http://127.0.0.1:8081/teleph_view')
+.then((response) => {
+  return response.json(); 
+})
+.then((data) => {
+  let itemList = data;
+   let items_table = document.getElementById('table');
+   itemList.sort();
+   items_table.innerHTML = '<th scope="col">Код</th>  <th scope="col">Назва бренду</th> <th scope="col">модель</th><th scope="col">Процесор</th><th scope="col">Дисплей</th>';
+for(let i = 0; i < itemList.length; i++)
+{   if(itemList[i].model_teleph = view_search)
+    items_table.innerHTML+= '<tr><td>' + itemList[i].id_teleph + '</td><td>'+ itemList[i].name_brend + '</td><td>'+ itemList[i].model_teleph+ '</td><td>'+ itemList[i].name_cpu + '</td><td>' + itemList[i].name_screen+ '</td></tr>';
+}
+});
+}
+
+function addscreen(){
+  let id_brend = document.getElementById('id_screen')
+  let id_book = document.getElementById('name_screen')
+fetch('http://127.0.0.1:8081/addscreen?id_screen=' + id_screen.value + '&name_screen=' + name_screen.value)
+.then((response) => {
+  return response.json();
+})
+.then((data) => {
+  console.log(data);
+});
+let items_table = document.getElementById('table');
+items_table.innerHTML='';
+console.log('Успіх');
+}
+function delscreen(){
+  let table_name = document.getElementById('screendel')
+fetch('http://127.0.0.1:8081/delscreen?table='+ table_name.value+'&')
+.then((response) => {
+  return response.json();
+})
+.then((data) => {
+  console.log(data);
+});
+let items_table = document.getElementById('table');
+items_table.innerHTML='';
+console.log('Успіх');
+}
+function addcpu(){
+  let id_cpu = document.getElementById('id_cpu')
+  let name_cpu = document.getElementById('name_cpu')
+fetch('http://127.0.0.1:8081/addcpu?id_cpu=' + id_cpu.value + '&name_cpu=' + name_cpu.value)
+.then((response) => {
+  return response.json();
+})
+.then((data) => {
+  console.log(data);
+});
+let items_table = document.getElementById('table');
+items_table.innerHTML='';
+console.log('Успіх');
+}
+function delcpu(){
+  let table_name = document.getElementById('cpudel')
+fetch('http://127.0.0.1:8081/delcpu?table='+ table_name.value+'&')
+.then((response) => {
+  return response.json();
+})
+.then((data) => {
+  console.log(data);
+});
+let items_table = document.getElementById('table');
+items_table.innerHTML='';
+console.log('Успіх');
+}
+function addbrend(){
+  let id_brend = document.getElementById('id_brend')
+  let name_brend = document.getElementById('name_brend')
+fetch('http://127.0.0.1:8081/addbrend?id_brend=' + id_brend.value + '&name_brend=' + name_brend.value)
+.then((response) => {
+  return response.json();
+})
+.then((data) => {
+  console.log(data);
+});
+let items_table = document.getElementById('table');
+items_table.innerHTML='';
+console.log('Успіх');
+}
+function delbrend(){
+  let table_name = document.getElementById('brenddel')
+fetch('http://127.0.0.1:8081/delbrend?table='+ table_name.value+'&')
+.then((response) => {
+  return response.json();
+})
+.then((data) => {
+  console.log(data);
+});
+let items_table = document.getElementById('table');
+items_table.innerHTML='';
+console.log('Успіх');
+}
+function addsklad(){
+  let id_poz = document.getElementById('id_poz')
+  let id_teleph = document.getElementById('id_teleph')
+  let k_st = document.getElementById('k_st')
+fetch('http://127.0.0.1:8081/addsklad?id_poz=' + id_poz.value + '&id_teleph=' + id_teleph.value + '&k_st='+ k_st.value)
+.then((response) => {
+  return response.json();
+})
+.then((data) => {
+  console.log(data);
+});
+let items_table = document.getElementById('table');
+items_table.innerHTML='';
+console.log('Успіх');
+}
+function delsklad(){
+  let table_name = document.getElementById('skladdel')
+fetch('http://127.0.0.1:8081/delsklad?table='+ table_name.value+'&')
+.then((response) => {
+  return response.json();
+})
+.then((data) => {
+  console.log(data);
+});
+let items_table = document.getElementById('table');
+items_table.innerHTML='';
+console.log('Успіх');
+}
+function addclient(){
+  let id_client = document.getElementById('id_client')
+  let PIB_client = document.getElementById('PIB_client')
+  let teleph = document.getElementById('teleph')
+fetch('http://127.0.0.1:8081/addclient?id_client=' + id_client.value + '&PIB_client=' + PIB_client.value + '&teleph='+ teleph.value)
+.then((response) => {
+  return response.json();
+})
+.then((data) => {
+  console.log(data);
+});
+let items_table = document.getElementById('table');
+items_table.innerHTML='';
+console.log('Успіх');
+}
+function delclient(){
+  let table_name = document.getElementById('clientdel')
+fetch('http://127.0.0.1:8081/delclient?table='+ table_name.value+'&')
+.then((response) => {
+  return response.json();
+})
+.then((data) => {
+  console.log(data);
+});
+let items_table = document.getElementById('table');
+items_table.innerHTML='';
+console.log('Успіх');
+}
+function addteleph(){
+  let id_client = document.getElementById('id_teleph')
+  let model_teleph = document.getElementById('model_teleph')
+  let id_brend = document.getElementById('id_brend')
+  let id_cpu = document.getElementById('id_cpu')
+  let id_screen = document.getElementById('id_screen')
+fetch('http://127.0.0.1:8081/addteleph?id_teleph=' + id_teleph.value + '&model_teleph=' + model_teleph.value + '&id_brend='+ id_brend.value+ '&id_id_cpu='+ id_id_cpu.value+ '&id_screen='+ id_screen.value)
+.then((response) => {
+  return response.json();
+})
+.then((data) => {
+  console.log(data);
+});
+let items_table = document.getElementById('table');
+items_table.innerHTML='';
+console.log('Успіх');
+}
+function delteleph(){
+  let table_name = document.getElementById('telephdel')
+fetch('http://127.0.0.1:8081/delteleph?table='+ table_name.value+'&')
+.then((response) => {
+  return response.json();
+})
+.then((data) => {
+  console.log(data);
+});
+let items_table = document.getElementById('table');
+items_table.innerHTML='';
+console.log('Успіх');
+}
+
+function addoperation(){
+  let id_operation = document.getElementById('id_operation')
+  let id_client = document.getElementById('id_client')
+  let id_teleph = document.getElementById('id_teleph')
+fetch('http://127.0.0.1:8081/addoperation?id_operation=' + id_operation.value + '&id_client=' + id_client.value + '&id_teleph='+ id_teleph.value)
+.then((response) => {
+  return response.json();
+})
+.then((data) => {
+  console.log(data);
+});
+let items_table = document.getElementById('table');
+items_table.innerHTML='';
+console.log('Успіх');
+}
+function deloperation(){
+  let table_name = document.getElementById('operationdel')
+fetch('http://127.0.0.1:8081/deloperation?table='+ table_name.value+'&')
+.then((response) => {
+  return response.json();
+})
+.then((data) => {
+  console.log(data);
+});
+let items_table = document.getElementById('table');
+items_table.innerHTML='';
+console.log('Успіх');
+}
+</script>
+</div>	
+<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+</body>
+</html>
